@@ -28,6 +28,7 @@ Create a `.env.local` file in the root directory of your project and add the fol
   ```bash
   # Gemini AI API Key
   GEMINI_API_KEY=your-gemini-api-key
+  ```
 
 ### Running the Project
 
@@ -39,3 +40,4 @@ Create a `.env.local` file in the root directory of your project and add the fol
   ```bash
     npm run build
   ```
+  
