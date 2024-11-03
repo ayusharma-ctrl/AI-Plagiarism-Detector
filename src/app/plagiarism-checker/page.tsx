@@ -59,7 +59,7 @@ const Page = () => {
     };
 
     return (
-        <div className="w-full min-h-screen flex flex-col items-center gap-4 mx-2">
+        <div className="w-full min-h-screen flex flex-col items-center gap-4 px-2 lg:px-4">
             <section className='w-full max-w-2xl space-y-4 mt-16'>
                 <FileUpload file={file} setFile={setFile} />
                 <Button className="w-full" onClick={handlePlagiarismCheck} disabled={isFetching || !file}>
