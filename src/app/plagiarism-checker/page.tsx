@@ -59,7 +59,7 @@ const Page = () => {
     };
 
     return (
-        <div className="w-full min-h-screen flex flex-col items-center gap-4">
+        <div className="w-full min-h-screen flex flex-col items-center gap-4 mx-2">
             <section className='w-full max-w-2xl space-y-4 mt-16'>
                 <FileUpload file={file} setFile={setFile} />
                 <Button className="w-full" onClick={handlePlagiarismCheck} disabled={isFetching || !file}>
@@ -70,7 +70,7 @@ const Page = () => {
                 }
             </section>
 
-            {file && plagiarizedText && plagiarismScore && (
+            {plagiarizedText && (
                 <section className='w-full max-w-2xl space-y-4 lg:space-y-8 my-8 lg:my-12'>
                     <h2 className="text-2xl font-bold">Plagiarism Report</h2>
                     {/* score */}
@@ -90,7 +90,7 @@ const Page = () => {
                         />
                     </div>
                     {/* btn to download report */}
-                    <ReportSave fileName={file?.name} plagiarismScore={plagiarismScore} plagiarizedText={plagiarizedText} />
+                    <ReportSave fileName={file?.name ?? ''} plagiarismScore={plagiarismScore ?? 0} plagiarizedText={plagiarizedText} />
                 </section>
             )}
         </div>
