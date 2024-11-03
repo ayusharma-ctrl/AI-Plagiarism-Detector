@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# App - Don't Get Caught
+
+This project is an AI-powered plagiarism detection tool that allows users to upload PDF or Docx files and receive a detailed report on the plagiarized content.
 
 ## Getting Started
 
-First, run the development server:
+Follow the instructions below to set up the project locally on your machine.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Clone the repository:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   git clone https://github.com/ayusharma-ctrl/Ayush-Sharma-AIPlagiarismDetector.git
+   
+2. **Navigate to the project directory:**
+   ```bash
+   cd Ayush-Sharma-AIPlagiarismDetector
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Install dependencies:**
+   ```bash
+   npm install
 
-## Learn More
+### Configuration
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env.local` file in the root directory of your project and add the following environment variables:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  ```bash
+  # Gemini AI API Key
+  GEMINI_API_KEY=your-gemini-api-key
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Running the Project
 
-## Deploy on Vercel
+  ```bash
+    npm run dev
+  ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Build for production:
+  ```bash
+    npm run build
+  ```
