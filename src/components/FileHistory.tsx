@@ -4,6 +4,7 @@ import { Textarea } from './ui/textarea'
 import { Progress } from './ui/progress'
 import { IHistoryData, IFileHistoryProps } from '@/lib/types'
 import { formattedDate } from '@/lib/utils'
+import ReportSave from './ReportSave'
 
 const FileHistory: React.FC<IFileHistoryProps> = (props) => {
     const { historyData } = props;
@@ -64,6 +65,8 @@ const FileHistory: React.FC<IFileHistoryProps> = (props) => {
                                 value={selectedHistory?.response}
                             />
                         </div>
+                        {/* btn to download report */}
+                        <ReportSave fileName={selectedHistory.fileName ?? ''} plagiarismScore={selectedHistory.score ?? 0} plagiarizedText={selectedHistory.response} />
                     </div>
                 </section>
             )}
