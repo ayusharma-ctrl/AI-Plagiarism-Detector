@@ -3,11 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle, UploadIcon } from "lucide-react"
-
-interface IFileUploadProps {
-    file: File | null,
-    setFile: (file: File | null) => void
-}
+import { IFileUploadProps } from '@/lib/types'
 
 const FileUpload: React.FC<IFileUploadProps> = (props) => {
     const { file, setFile } = props;

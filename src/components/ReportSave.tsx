@@ -1,14 +1,9 @@
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 import jsPDF from 'jspdf';
+import { IReportSaveProps } from '@/lib/types';
 
-interface IProps {
-    plagiarizedText: string,
-    plagiarismScore: number,
-    fileName: string,
-}
-
-const ReportSave: React.FC<IProps> = (props) => {
+const ReportSave: React.FC<IReportSaveProps> = (props) => {
     const { plagiarizedText, plagiarismScore, fileName } = props;
 
     // method to create a pdf file and download it

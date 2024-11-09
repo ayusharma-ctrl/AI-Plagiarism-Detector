@@ -7,18 +7,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { LoaderCircleIcon } from 'lucide-react';
 import FileUpload from '@/components/FileUpload';
 import ReportSave from '@/components/ReportSave';
-
-interface IResult {
-    success: boolean,
-    message: string,
-    score?: number,
-}
+import History from '@/components/FileHistory';
+import { IHistoryData, IResult } from '@/lib/types';
 
 const Page = () => {
     const [file, setFile] = useState<File | null>(null);
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [plagiarizedText, setPlagiarizedText] = useState<string | null>('');
     const [plagiarismScore, setPlagiarismScore] = useState<number | null>(0);
+    const [isHistory, setIsHistory] = useState<IHistoryData[] | null>(null);
 
     // method to send uploaded file to the server to detect plagiarism content
     const handlePlagiarismCheck = async () => {
@@ -42,6 +39,19 @@ const Page = () => {
 
             setPlagiarismScore(result?.score ?? 0);
             setPlagiarizedText(result?.message);
+
+            // persist history
+            const newHistory: IHistoryData = {
+                fileName: file?.name,
+                response: result?.message,
+                score: result?.score ?? 0,
+                time: new Date()
+            }
+
+            const updatedHistory = isHistory ? [...isHistory, newHistory] : [newHistory]
+
+            setIsHistory(updatedHistory);
+
             toast.success("Ta-da! Here is your AI generated report.");
         } catch (err: unknown) {
             console.log("Something went wrong: ", err);
@@ -93,6 +103,14 @@ const Page = () => {
                     <ReportSave fileName={file?.name ?? ''} plagiarismScore={plagiarismScore ?? 0} plagiarizedText={plagiarizedText} />
                 </section>
             )}
+
+            {/* previously generated reports */}
+            {isHistory && isHistory?.length > 0 && (
+                <section className='w-full my-4 lg:my-8'>
+                    <History historyData={isHistory} />
+                </section>
+            )}
+            
         </div>
     )
 }
