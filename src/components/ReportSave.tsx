@@ -9,28 +9,40 @@ const ReportSave: React.FC<IReportSaveProps> = (props) => {
     // method to create a pdf file and download it
     const handleReport = () => {
         try {
-            const doc = new jsPDF();
+            const doc = new jsPDF(); // create doc instance
+            const pageHeight = doc.internal.pageSize.getHeight(); // get height of page
+            const pageWidth = doc.internal.pageSize.getWidth(); // get width of page
+            const margin = 20; // let's give margin 20 for now
+            let yPosition = margin; // this is to set top and bottom page margin
+            doc.setFont("helvetica"); // set font to "helvetica" for better Unicode support and auto text wrapping
 
-            // add title
-            doc.setFontSize(18);
-            doc.text(`Plagiarism Report - (${fileName})`, 20, 20); // title, position
+            // custom method to add text with margins and page breaks
+            const addText = (text: string, fontSize: number) => {
+                doc.setFontSize(fontSize); // method to set fontsize
+                const splitText = doc.splitTextToSize(text, pageWidth - 2 * margin); // handles left-right page margins
+                for (let i = 0; i < splitText.length; i++) {
+                    if (yPosition > pageHeight - margin) {
+                        doc.addPage(); // method to adds up a new page if content is large
+                        yPosition = margin;
+                    }
+                    doc.text(splitText[i], margin, yPosition); // method to write text on page
+                    yPosition += fontSize * 0.5;
+                }
+                yPosition += fontSize; // add some space after the text block
+            };
 
-            // add plagiarism score
-            doc.setFontSize(16);
-            doc.text(`Plagiarism Score: ${plagiarismScore}%`, 20, 30);
+            addText(`Plagiarism Report - (${fileName})`, 18); // add title
+            addText(`Plagiarism Score: ${plagiarismScore}%`, 16); // add plagiarism score
+            addText('Analysis:', 16); // add analysis title
+            addText(plagiarizedText, 12); // add plagiarized text
 
-            // add analysis title
-            doc.setFontSize(16);
-            doc.text('Analysis:', 20, 40);
+            // doc.text('Analysis:', 20, 50); 
+            // Note: normally this is how we directly add text to pdf, accepts (text, x-position, y-position)
 
-            // add plagiarized text
-            doc.setFontSize(12);
-            const splitText = doc.splitTextToSize(plagiarizedText, 170);
-            doc.text(splitText, 20, 50);
+            doc.save(`AI-Report-${fileName}.pdf`); // download the PDF file
 
-            // save/download the PDF
-            doc.save(`plagiarism_report_${fileName}.pdf`);
             toast.success("PDF report downloaded successfully!");
+            
         } catch (err) {
             console.log(err);
             toast.error("Failed to download report!");
